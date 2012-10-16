@@ -14,20 +14,23 @@ public class CardSoln3 {
      * Test code.
      */
     public static void main(String[] args) {
+	Card card = new Card(1, 1);
+	card.print();
+	String s = card.toString();
+	System.out.println(s);
+	System.out.println(card);
+
+	Card card2 = new Card(1, 1);
+	System.out.println(card.equals(card2));
 	Deck deck1 = new Deck();
-	deck1.print();
-	System.out.println();
 	Deck deck = new Deck();
-	deck.print();
-	//deck1.merge(deck);
-	deck1.merge(deck);
-	System.out.println();
-	deck1.print();
+	
+	
 	// check sortDeck
-	//deck.shuffle();
-	//deck.sort();
-	//checkSorted(deck);
-	/**
+	deck.shuffle();
+	deck.sort();
+	checkSorted(deck);
+
 	// check that findBisect finds each card
 	int index;
 	for (int i=0; i<52; i++) {
@@ -53,7 +56,6 @@ public class CardSoln3 {
 	deck.shuffle();
 	deck = deck.mergeSort();
 	checkSorted(deck);
-	*/
     }
 
     /*
@@ -145,6 +147,7 @@ class Card {
  */
 class Deck {
     Card[] cards;
+    final int handSize = 5;
 
     /*
      * Makes a Deck with room for n Cards (but no Cards yet).
@@ -166,6 +169,17 @@ class Deck {
 		index++;
  	    }
 	}
+    }
+    
+    public PokerHand Deal(){
+    	Deck dealDeck = new Deck();
+    	PokerHand hand = new PokerHand();
+    	for(int i=0;i<handSize; i++)
+    	{
+    		
+    	}
+    	
+    	//return pokerHand
     }
 
     /*
@@ -283,11 +297,11 @@ class Deck {
     }
 
     /*
-     * Merges two sorted decks into a new sorted deck. Attempted to change to object method.
+     * Merges two sorted decks into a new sorted deck.
      */
-    public Deck merge(Deck d1) {
+    public Deck merge(Deck d1, Deck d2) {
 	// create the new deck
-	Deck result = new Deck (cards.length + d1.cards.length);
+	Deck result = new Deck (d1.cards.length + d2.cards.length);
 		
 	int choice;    // records the winner (1 means d1, 2 means d2)
 	int i = 0;     // traverses the first input deck
@@ -299,18 +313,18 @@ class Deck {
 
 	    // if d1 is empty, d2 wins; if d2 is empty, d1 wins; otherwise,
 	    // compare the two cards
-	    if (i == cards.length)
+	    if (i == d1.cards.length)
 		choice = 2;
-	    else if (j == d1.cards.length)
+	    else if (j == d2.cards.length)
 		choice = 1;
-	    else if (cards[i].compareTo(d1.cards[j]) > 0)
+	    else if (d1.cards[i].compareTo(d2.cards[j]) > 0)
 		choice = 2;
 			
 	    // make the new deck refer to the winner card
 	    if (choice == 1) {
-		result.cards[k] = cards[i];  i++;
+		result.cards[k] = d1.cards[i];  i++;
 	    } else {
-		result.cards[k] = d1.cards[j];  j++;
+		result.cards[k] = d2.cards[j];  j++;
 	    }			
 	}
 	return result;
