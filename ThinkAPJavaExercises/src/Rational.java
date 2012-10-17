@@ -1,4 +1,8 @@
-
+/**
+ * object methods better...
+ * @author alexlove
+ *
+ */
 public class Rational {
 	int numerator;
 	int denominator;
@@ -16,36 +20,27 @@ public class Rational {
 		denominator = den;
 	}
 	
-	public static void printRational(Rational r)
+	public static void printRational(int numerator, int denominator)
 	{
-		System.out.println( r.numerator + "/" + r.denominator);
+		System.out.println( numerator + "/" + denominator);
 	}
 	
-	public int getSign()
+	
+	public static void invert(Rational r)
 	{
-		if ((numerator/denominator) > 0) //means positive sign
-		{
-			return 1;
-		}
-		else 
-			return 0;//means negative sign
+		int holdNumerator = r.numerator;
+		r.numerator = r.denominator;
+		r.denominator = holdNumerator;
 	}
 	
-	public void invert()
+	public static void negate(Rational r)
 	{
-		int holdNumerator = numerator;
-		numerator = denominator;
-		denominator = holdNumerator;
+		r.numerator = -r.numerator;
 	}
 	
-	public void negate()
+	public static double toDouble(Rational r)
 	{
-		numerator = -numerator;
-	}
-	
-	public double toDouble()
-	{
-		return (double) numerator/denominator;
+		return ((double) r.numerator)/((double)r.denominator);
 	}
 	
 	public static int getGCD(int x, int y)
@@ -55,25 +50,25 @@ public class Rational {
 		
 	}
 	
-	public void reduce()
+	public static void reduce(Rational r)
 	{
-		int d = getGCD(numerator, denominator);//what to divide by
-		numerator = numerator/d;
-		denominator = denominator/d;
+		int d = getGCD(r.numerator, r.denominator);//what to divide by
+		r.numerator = r.numerator/d;
+		r.denominator = r.denominator/d;
 	}
 	
 	public static void main(String []args)
 	{
-		Rational r = new Rational(2,8);
+		Rational r = new Rational(3,15);
 		
-		printRational(r);
-		r.negate();
-		printRational(r);
-		r.invert();
-		printRational(r);
-		//System.out.println(r.toDouble());//should be -.5
-		r.reduce();
-		printRational(r);
+		printRational(r.numerator, r.denominator);
+		negate(r);
+		printRational(r.numerator, r.denominator);
+		invert(r);
+		printRational(r.numerator, r.denominator);
+		System.out.println(toDouble(r));//should be -4
+		reduce(r);
+		printRational(r.numerator, r.denominator);
 	}
 	
 

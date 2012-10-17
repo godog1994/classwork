@@ -15,18 +15,25 @@ public class CardSoln3 {
 	 */
 	public static void main(String[] args) {
 		Deck testDeck = new Deck();
-		int handNumber = 4;
+		int handNumber = 5000;
 		PokerHand[] handArray = new PokerHand[handNumber];
 		testDeck.shuffle();
+		//PokerHand newHand = testDeck.deal();
+		//handArray[0]= newHand;
+		//handArray[0].hasFlush(handArray[0]);
+		
+		testDeck.shuffle();
+		
 		for ( int i = 0; i < handNumber; i++)
 		{
+		testDeck.shuffle();
+		PokerHand newHand = testDeck.deal();
+		handArray[i]= newHand;
+		handArray[i].print();
+		handArray[i].hasFlush(newHand);	
 			
-			PokerHand newHand = testDeck.deal(); //always results in the same thing.
-			handArray[i] = newHand;
-			newHand.print();
-			System.out.println();
-		}
-		
+		} 
+	
 		
 		
 	}
@@ -119,7 +126,7 @@ class Card {
  */
 class Deck {
 	Card[] cards;
-	final int handSize = 5;
+	 int handSize =5;
 
 	/*
 	 * Makes a Deck with room for n Cards (but no Cards yet).
@@ -127,13 +134,18 @@ class Deck {
 	public Deck(int n) {
 		this.cards = new Card[n];
 	}
+	
+	public void setHandSize(int handSize)
+	{
+		this.handSize = handSize;
+	}
 
 	/*
 	 * Makes an array of 52 cards.
 	 */
 	public Deck() {
 		this.cards = new Card [52];
-
+		
 		int index = 0;
 		for (int suit = 0; suit <= 3; suit++) {
 			for (int rank = 1; rank <= 13; rank++) {
@@ -146,6 +158,7 @@ class Deck {
 	public PokerHand deal(){
 
 		PokerHand hand = new PokerHand();
+		
 		for(int i=0;i<handSize; i++)
 		{
 			hand.cards[i] = cards[i];
@@ -324,26 +337,54 @@ class Deck {
 		return merge(d1, d2);
 	}
 }
+/**
+ * A pokerhand
+ * @author alexlove
+ *
+ */
 class PokerHand extends Deck {
 
 
+	PokerHand(int x)
+	{
+		super(x);
+	}
 	PokerHand()
 	{
 		super(5);
 	}
-
-
-
-
-	public static void main(String []args)
+	
+	public boolean hadThreeOfKind(PokerHand p)
 	{
-
+		for (int i=1; i < p.handSize; i++)
+		{
+			if(p.cards[i-1].rank == p.cards[i].rank && p.cards[i].rank == p.cards[i+1].rank && p.cards[i+1].rank == p.cards[i+2].rank)
+			{
+				System.out.println("is 3 of kind");
+				return true;
+				
+			}
+		}
+		return false;
 	}
-
-
-	/*
-	 * 
+	/**
+	 * True if a hand has a flush
+	 * @param p the pokerhand
+	 * @return true or false if has flush or not
 	 */
-
+	public boolean hasFlush(PokerHand p)
+	{
+		for (int i=1; i < p.handSize; i++)
+		{
+			if(p.cards[i-1].suit != p.cards[i].suit)
+			{
+				System.out.println("no flush");
+				return false;
+			}
+			
+		}
+		System.out.println(" Hand is a flush");
+	return true;	
+	}
 }//end class
 
