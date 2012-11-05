@@ -4,12 +4,22 @@
  *
  */
 public class exercise1point11 {
+	static int a,b,c,f0,f1,f2;
+	public static void main(String []args)
+	{
+	a =1;
+	b=1;
+	c=1;
+	f0=1;
+	f1=1;
+	f2=1;
+		System.out.println(function(5));
+	}
 
 	public static double function(double n)
 		{
 			if ( n < 3)
 			{
-				
 				return n;
 			}
 			if ( n >= 3)
@@ -20,8 +30,5 @@ public class exercise1point11 {
 			return n;
 		}
 	
-	public static void main(String []args)
-	{
-		System.out.println(function(5));
-	}
+	
 }
